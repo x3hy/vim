@@ -59,3 +59,4 @@ set shellslash
 set wildmenu
 set wildmode=longest:full,full
 set wildoptions=pum
+set foldmethod=syntax
