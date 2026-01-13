@@ -1,10 +1,15 @@
+let mapleader = "\\"
+
 " Plugins
 call plug#begin()
-Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'ap/vim-buftabline'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " Lsp
@@ -40,9 +45,26 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 
+" Movement
+nnoremap <Leader>h <C-w>h
+nnoremap <Leader>l <C-w>j
+nnoremap <Leader>j <C-w>k
+nnoremap <Leader>k <C-w>l
+
+nnoremap <C-h> :vertical resize -2<CR>
+nnoremap <C-l> :vertical resize +2<CR>
+nnoremap <C-j> :resize -2<CR>
+nnoremap <C-k> :resize +2<CR>
+
+" Buffers
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
+
 " Basic options
+set nu
 set rnu
-set laststatus=3
+set mouse=a
+set laststatus=2
 set nowrap
 set shiftwidth=4
 set tabstop=4
@@ -51,12 +73,65 @@ set cursorline
 set showtabline=1
 set foldcolumn=3
 set completeopt=menuone,noinsert,noselect,preview
-syntax on
-filetype off
 set nocompatible
-filetype plugin indent on
 set shellslash
 set wildmenu
 set wildmode=longest:full,full
 set wildoptions=pum
 set foldmethod=syntax
+
+filetype plugin indent on
+syntax on
+
+" Status
+set statusline=%F
+set statusline+=(%y)\ \|
+set statusline+=\ %l/%L
+
+
+" Yazi intergration
+function  LaunchYazi()
+	execute 'silent !' .. 'bash -c yazi ' .. shellescape(expand('%:p:h'))
+
+	redraw!
+endfunction
+command! YaziLaunch call LaunchYazi()
+nnoremap <silent> <Leader>ef :YaziLaunch<CR>
+
+" FZF command uses fg for max speed
+let g:rg_command = 'rg --vimgrep --smart-case'
+
+" Use built-in colorscheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Basic binds
+nnoremap <C-e> :FZF<CR>
+nnoremap <C-g> :Colors<CR>
+
+" Reload vim config on <Leader>ee
+nnoremap <Leader>e :source ~/.vim/vimrc<CR>
+
+" Save colorscheme
+set viminfo^=!
+
+" Restore last colorscheme on startup
+autocmd VimEnter * nested
+    \ if !empty(get(g:, 'LAST_COLORSCHEME', '')) |
+    \   try | exe 'colorscheme' g:LAST_COLORSCHEME | catch | endtry |
+    \ endif
+
+" Remember colorscheme every time it changes
+autocmd ColorScheme * let g:LAST_COLORSCHEME = expand('<amatch>')
