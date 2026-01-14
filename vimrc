@@ -64,7 +64,6 @@ nnoremap <Leader>a :bprev<CR>
 set nu
 set rnu
 set mouse=a
-set laststatus=2
 set nowrap
 set shiftwidth=4
 set tabstop=4
@@ -80,21 +79,49 @@ set wildmode=longest:full,full
 set wildoptions=pum
 set foldmethod=syntax
 set foldlevelstart=99
+set hidden
+
+" Statusline
+set laststatus=2
+set showcmd
+set noshowmode
+set cmdheight=1
+set statusline=%<\ %{mode()}\ \|\ %F\ \|\ (%y)\ %h%m%r%=%-14.(%l/%L,\ %c%V%)\ --%P--\ 
+
+" Ruler for line size
+" set colorcolumn=80
+" highlight ColorColumn ctermbg=white
 
 filetype plugin indent on
 syntax on
 
-" Status
-set statusline=%<%F\ (%y)\ %h%m%r%=%-14.(%l/%L,%c%V%)\ %P
-
 " Yazi intergration
-function  LaunchYazi()
-	execute 'silent ! bash -c -i y' 
-	redraw!
+function LaunchYazi()
+    let tempname = tempname()
+    execute 'silent !bash -c "TERM=xterm-kitty yazi --chooser-file ' .. tempname .. '"'
+    redraw!
+
+    if filereadable(tempname)
+        let paths = readfile(tempname)
+        call delete(tempname)
+
+        if empty(paths)
+            return
+        endif
+
+        execute 'edit' fnameescape(paths[0])
+
+        for path in paths[1:]
+            execute 'split' fnameescape(path)
+        endfor
+    endif
 endfunction
 
 command! YaziLaunch call LaunchYazi()
-nnoremap <silent> <Leader>ef :YaziLaunch<CR>
+nnoremap <leader>ef :YaziLaunch<CR>
+
+command! YaziLaunch call LaunchYazi()
+nnoremap <Leader>ef :YaziLaunch<CR>
 
 " FZF command uses fg for max speed
 let g:rg_command = 'rg --vimgrep --smart-case'
@@ -118,6 +145,7 @@ let g:fzf_colors =
 " Basic binds
 nnoremap <C-e> :FZF<CR>
 nnoremap <C-g> :Colors<CR>
+nnoremap <tab> :Buffers<CR>
 
 " Reload vim config on <Leader>ee
 nnoremap <Leader>e :source ~/.vim/vimrc<CR>

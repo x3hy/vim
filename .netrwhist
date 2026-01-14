@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =6
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/_3hy'
 let g:netrw_dirhist_6='/home/_3hy/.dwm/script/media'
 let g:netrw_dirhist_5='/home/_3hy/.dwm/script/bar'
 let g:netrw_dirhist_4='/home/_3hy/.dwm/script/media'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_1='/home/_3hy/.dwm/script/media'
 let g:netrw_dirhist_0='/home/_3hy/.dwm/script/bar'
 let g:netrw_dirhist_9='/home/_3hy/.vim'
 let g:netrw_dirhist_8='/home/_3hy'
-let g:netrw_dirhist_7='/home/_3hy/.vim'
