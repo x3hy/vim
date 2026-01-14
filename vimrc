@@ -86,7 +86,14 @@ set laststatus=2
 set showcmd
 set noshowmode
 set cmdheight=1
-set statusline=%<\ %{mode()}\ \|\ %F\ \|\ (%y)\ %h%m%r%=%-14.(%l/%L,\ %c%V%)\ --%P--\ 
+
+function! FileSize(bytes)
+  let l:bytes = a:bytes | let l:sizes = ['B', 'KB', 'MB', 'GB'] | let l:i = 0
+  while l:bytes >= 1024 | let l:bytes = l:bytes / 1024.0 | let l:i += 1 | endwhile
+  return l:bytes > 0 ? printf('%.2f%s ', l:bytes, l:sizes[l:i]) : ''
+endfunction
+
+set statusline=%<\ %{mode()}\ \|\ %F\ \|\ (%y)\ \|\ %{FileSize(line2byte('$')+len(getline('$')))}\ %h%m%r%=%-14.(%l/%L,\ %c%V%)\ --%P--\ 
 
 " Ruler for line size
 " set colorcolumn=80
