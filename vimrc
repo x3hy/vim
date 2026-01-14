@@ -56,9 +56,9 @@ nnoremap <C-l> :vertical resize +2<CR>
 nnoremap <C-j> :resize -2<CR>
 nnoremap <C-k> :resize +2<CR>
 
-" Buffers
-nnoremap <C-N> :bnext<CR>
-nnoremap <C-P> :bprev<CR>
+" Buffers1
+nnoremap <Leader>d :bnext<CR>
+nnoremap <Leader>a :bprev<CR>
 
 " Basic options
 set nu
@@ -79,22 +79,20 @@ set wildmenu
 set wildmode=longest:full,full
 set wildoptions=pum
 set foldmethod=syntax
+set foldlevelstart=99
 
 filetype plugin indent on
 syntax on
 
 " Status
-set statusline=%F
-set statusline+=(%y)\ \|
-set statusline+=\ %l/%L
-
+set statusline=%<%F\ (%y)\ %h%m%r%=%-14.(%l/%L,%c%V%)\ %P
 
 " Yazi intergration
 function  LaunchYazi()
-	execute 'silent !' .. 'bash -c yazi ' .. shellescape(expand('%:p:h'))
-
+	execute 'silent ! bash -c -i y' 
 	redraw!
 endfunction
+
 command! YaziLaunch call LaunchYazi()
 nnoremap <silent> <Leader>ef :YaziLaunch<CR>
 
@@ -135,3 +133,4 @@ autocmd VimEnter * nested
 
 " Remember colorscheme every time it changes
 autocmd ColorScheme * let g:LAST_COLORSCHEME = expand('<amatch>')
+
