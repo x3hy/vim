@@ -1,34 +1,19 @@
 #Vim
 ------------
-This is my personal configuration of vim. If github had
-unlisted repos this would be one.
+This is my personal configuration of vim. If github had unlisted repos this would be one.
 
-My vim config has full LSP and buffer tabs along with 
-FZF intergration, also I've written a custom use of 
-my file editor of choice yazi which can be used through
-the \ef bind, if you select multiple files in yazi then
-a vsplit will open for each file!
+My vim config has full LSP and buffer tabs along with FZF intergration, also I've written a custom use of my file editor of choice yazi which can be used through the \ef bind, if you select multiple files in yazi then a vsplit will open for each file!
 
-This config is mainly for my use so do not expect me to
-cater to any issues that are made.
+This config is mainly for my use so do not expect me to cater to any issues that are made.
 
-Some screenshots are in the ./img folder, the font used
-in the screenshots is:
+Some screenshots are in the ./img folder, the font used in the screenshots is:
 Terminus (TTF)
 -------------
 
 # Basic installation
-simply run `:PlugInstall` when running for the first time.
-if FZF fails to install then you will have to manually go 
-and install it to your system. yazi needs to be installed. 
-If you go to Yazi's quickstart page you'll find an alias
-function to put in your shell config file. In this case 
-the alias is simply called 'y' so this also needs to be 
-set of course this can be changed through the vimrc config
-file.
+simply run `:PlugInstall` when running for the first time. if FZF fails to install then you will have to manually go and install it to your system. yazi needs to be installed. If you go to Yazi's quickstart page you'll find an alias function to put in your shell config file. In this case the alias is simply called 'y' so this also needs to be set of course this can be changed through the vimrc config file.
 
-If you are interested in my configuration for my window 
-manager of choice DWM, please navigate to my dwm repo:
+If you are interested in my configuration for my window manager of choice DWM, please navigate to my dwm repo:
 https://github.com/x3hy/dwm
 
 Thank you.
