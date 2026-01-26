@@ -12,7 +12,9 @@ a vsplit will open for each file!
 This config is mainly for my use so do not expect me to
 cater to any issues that are made.
 
-some screenshots are in the ./img folder.
+Some screenshots are in the ./img folder, the font used
+in the screenshots is:
+Terminus (TTF)
 -------------
 
 # Basic installation
@@ -24,5 +26,9 @@ function to put in your shell config file. In this case
 the alias is simply called 'y' so this also needs to be 
 set of course this can be changed through the vimrc config
 file.
+
+If you are interested in my configuration for my window 
+manager of choice DWM, please navigate to my dwm repo:
+https://github.com/x3hy/dwm
 
 Thank you.
