@@ -1,0 +1,5 @@
+![single file open](1.png)
+![dual files open](2.png)
+![fzf theme previews](3.png)
+![command prompt completions](4.png)
+![lsp errors (clangd)](5.png)
