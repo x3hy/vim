@@ -1,5 +1,11 @@
 let mapleader = "\\"
 
+" Restore last colorscheme on startup
+autocmd VimEnter * nested
+    \ if !empty(get(g:, 'LAST_COLORSCHEME', '')) |
+    \   try | exe 'colorscheme' g:LAST_COLORSCHEME | catch | endtry |
+    \ endif
+
 " Plugins
 call plug#begin()
 Plug 'prabirshrestha/vim-lsp'
@@ -67,7 +73,6 @@ set mouse=a
 set nowrap
 set shiftwidth=4
 set tabstop=4
-set undofile
 set cursorline
 set showtabline=1
 set foldcolumn=3
@@ -80,6 +85,22 @@ set wildoptions=pum
 set foldmethod=syntax
 set foldlevelstart=99
 set hidden
+set noswapfile
+
+set backupdir=.vbackup
+if !isdirectory('.vbackup')
+    silent! execute '!mkdir -p .vbackup'
+endif
+
+set undodir=.vundo
+if !isdirectory('.vundo')
+    silent! execute '!mkdir -p .vundo'
+endif
+
+set writebackup
+set undofile
+set backup
+
 
 " Statusline
 set laststatus=2
@@ -93,7 +114,7 @@ function! FileSize(bytes)
   return l:bytes > 0 ? printf('%.2f%s ', l:bytes, l:sizes[l:i]) : ''
 endfunction
 
-set statusline=%<\ %{mode()}\ \|\ %F\ \|\ (%y)\ \|\ %{FileSize(line2byte('$')+len(getline('$')))}\ %h%m%r%=%-14.(%l/%L,\ %c%V%)\ --%P--\ 
+set statusline+=%<\ [%{mode()}]\ \|\ %F\ \|\ %y\ \|\ %{FileSize(line2byte('$')+len(getline('$')))}\ %h%m%r%=%-14.(%l/%L,\ %c%V%)\ --%P--\ 
 
 " Ruler for line size
 " set colorcolumn=80
@@ -119,7 +140,7 @@ function LaunchYazi()
         execute 'edit' fnameescape(paths[0])
 
         for path in paths[1:]
-            execute 'split' fnameescape(path)
+            execute 'vsplit' fnameescape(path)
         endfor
     endif
 endfunction
@@ -160,12 +181,6 @@ nnoremap <Leader>e :source ~/.vim/vimrc<CR>
 " Save colorscheme
 set viminfo^=!
 
-" Restore last colorscheme on startup
-autocmd VimEnter * nested
-    \ if !empty(get(g:, 'LAST_COLORSCHEME', '')) |
-    \   try | exe 'colorscheme' g:LAST_COLORSCHEME | catch | endtry |
-    \ endif
 
 " Remember colorscheme every time it changes
 autocmd ColorScheme * let g:LAST_COLORSCHEME = expand('<amatch>')
-
