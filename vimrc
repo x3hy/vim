@@ -84,6 +84,8 @@ set wildmode=longest:full,full
 set wildoptions=pum
 set foldmethod=syntax
 set foldlevelstart=99
+set hlsearch
+set incsearch
 set hidden
 set noswapfile
 
