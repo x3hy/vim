@@ -88,6 +88,7 @@ set hlsearch
 set incsearch
 set hidden
 set noswapfile
+set background=dark
 
 set backupdir=.vbackup
 if !isdirectory('.vbackup')
